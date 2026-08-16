@@ -10,12 +10,75 @@ import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import Motorcycle3D from '@/components/Motorcycle3D';
+import { useThemeColor } from '@/hooks/use-theme-color';
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
 
+  // ================= THEME COLORS =================
+
+  const backgroundColor = useThemeColor(
+    {},
+    'background'
+  );
+
+  const cardColor = useThemeColor(
+    {},
+    'card'
+  );
+
+  const borderColor = useThemeColor(
+    {},
+    'border'
+  );
+
+  const textColor = useThemeColor(
+    {},
+    'text'
+  );
+
+  const secondaryTextColor = useThemeColor(
+    {},
+    'textSecondary'
+  );
+
+  const mutedTextColor = useThemeColor(
+    {},
+    'textMuted'
+  );
+
+  const cyanColor = useThemeColor(
+    {},
+    'cyan'
+  );
+
+  const greenColor = useThemeColor(
+    {},
+    'green'
+  );
+
+  const purpleColor = useThemeColor(
+    {},
+    'tint'
+  );
+
   return (
-    <View style={styles.screen}>
-      <StatusBar style="light" />
+    <View
+      style={[
+        styles.screen,
+        {
+          backgroundColor,
+        },
+      ]}
+    >
+      <StatusBar
+        style={
+          backgroundColor === '#0A0F1A'
+            ? 'light'
+            : 'dark'
+        }
+      />
 
       {/* ================= HEADER ================= */}
 
@@ -25,11 +88,21 @@ export default function HomeScreen() {
           {
             paddingTop: insets.top + 10,
             height: insets.top + 78,
+            backgroundColor,
           },
         ]}
       >
         <View style={styles.brandSection}>
-          <View style={styles.logoContainer}>
+
+          <View
+            style={[
+              styles.logoContainer,
+              {
+                backgroundColor: cardColor,
+                borderColor,
+              },
+            ]}
+          >
             <Image
               source={require('@/assets/images/motosense-logo-full.png')}
               style={styles.logo}
@@ -38,23 +111,66 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.brandNameContainer}>
-            <Text style={styles.brandName}>MOTOSENSE</Text>
-            <Text style={styles.aiA}>A</Text>
-            <Text style={styles.aiI}>I</Text>
+            <Text
+              style={[
+                styles.brandName,
+                {
+                  color: textColor,
+                },
+              ]}
+            >
+              MOTOSENSE
+            </Text>
+
+            <Text
+              style={[
+                styles.aiA,
+                {
+                  color: purpleColor,
+                },
+              ]}
+            >
+              A
+            </Text>
+
+            <Text
+              style={[
+                styles.aiI,
+                {
+                  color: cyanColor,
+                },
+              ]}
+            >
+              I
+            </Text>
           </View>
         </View>
 
         <TouchableOpacity
-          style={styles.notificationButton}
+          style={[
+            styles.notificationButton,
+            {
+              backgroundColor: cardColor,
+              borderColor,
+            },
+          ]}
           activeOpacity={0.75}
         >
           <Ionicons
             name="notifications-outline"
             size={22}
-            color="#F6F8FC"
+            color={textColor}
           />
 
-          <View style={styles.notificationDot} />
+          <View
+            style={[
+              styles.notificationDot,
+              {
+                backgroundColor: cyanColor,
+                borderColor: cardColor,
+              },
+            ]}
+          />
         </TouchableOpacity>
       </View>
 
@@ -65,36 +181,98 @@ export default function HomeScreen() {
         {/* ================= GREETING ================= */}
 
         <View style={styles.greeting}>
-          <Text style={styles.greetingTitle}>
+          <Text
+            style={[
+              styles.greetingTitle,
+              {
+                color: textColor,
+              },
+            ]}
+          >
             Good evening.
           </Text>
 
-          <Text style={styles.greetingSubtitle}>
+          <Text
+            style={[
+              styles.greetingSubtitle,
+              {
+                color: secondaryTextColor,
+              },
+            ]}
+          >
             Here's how your ride is looking today.
           </Text>
         </View>
 
+        {/* ================= 3D MOTORCYCLE ================= */}
+
+        <Motorcycle3D />
+
         {/* ================= SYSTEM STATUS ================= */}
 
-        <View style={styles.statusCard}>
+        <View
+          style={[
+            styles.statusCard,
+            {
+              backgroundColor: cardColor,
+              borderColor,
+            },
+          ]}
+        >
 
           <View style={styles.statusIndicatorContainer}>
-            <View style={styles.statusGlow}>
-              <View style={styles.statusDot} />
+            <View
+              style={[
+                styles.statusGlow,
+                {
+                  backgroundColor:
+                    'rgba(0, 255, 157, 0.08)',
+                },
+              ]}
+            >
+              <View
+                style={[
+                  styles.statusDot,
+                  {
+                    backgroundColor: greenColor,
+                  },
+                ]}
+              />
             </View>
           </View>
 
           <View style={styles.statusTextContainer}>
 
-            <Text style={styles.statusLabel}>
+            <Text
+              style={[
+                styles.statusLabel,
+                {
+                  color: mutedTextColor,
+                },
+              ]}
+            >
               SYSTEM STATUS
             </Text>
 
-            <Text style={styles.statusTitle}>
+            <Text
+              style={[
+                styles.statusTitle,
+                {
+                  color: textColor,
+                },
+              ]}
+            >
               ALL SYSTEMS OPERATIONAL
             </Text>
 
-            <Text style={styles.statusDescription}>
+            <Text
+              style={[
+                styles.statusDescription,
+                {
+                  color: secondaryTextColor,
+                },
+              ]}
+            >
               Your bike and safety system are functioning normally.
             </Text>
 
@@ -105,20 +283,33 @@ export default function HomeScreen() {
         {/* ================= TODAY'S RIDE ================= */}
 
         <TouchableOpacity
-          style={styles.rideCard}
+          style={[
+            styles.rideCard,
+            {
+              backgroundColor: cardColor,
+              borderColor,
+            },
+          ]}
           activeOpacity={0.8}
         >
 
           <View style={styles.cardHeader}>
 
-            <Text style={styles.cardLabel}>
+            <Text
+              style={[
+                styles.cardLabel,
+                {
+                  color: mutedTextColor,
+                },
+              ]}
+            >
               TODAY'S RIDE
             </Text>
 
             <Ionicons
               name="chevron-forward"
               size={19}
-              color="#7D8799"
+              color={mutedTextColor}
             />
 
           </View>
@@ -133,31 +324,67 @@ export default function HomeScreen() {
 
               <View style={styles.metricTopRow}>
 
-                <View style={styles.distanceIcon}>
+                <View
+                  style={[
+                    styles.distanceIcon,
+                    {
+                      backgroundColor:
+                        'rgba(0, 229, 255, 0.09)',
+                    },
+                  ]}
+                >
                   <Ionicons
                     name="navigate-outline"
                     size={19}
-                    color="#00E5FF"
+                    color={cyanColor}
                   />
                 </View>
 
-                <Text style={styles.metricValue}>
+                <Text
+                  style={[
+                    styles.metricValue,
+                    {
+                      color: textColor,
+                    },
+                  ]}
+                >
                   12.4
                 </Text>
 
-                <Text style={styles.metricUnit}>
+                <Text
+                  style={[
+                    styles.metricUnit,
+                    {
+                      color: secondaryTextColor,
+                    },
+                  ]}
+                >
                   km
                 </Text>
 
               </View>
 
-              <Text style={styles.metricLabel}>
+              <Text
+                style={[
+                  styles.metricLabel,
+                  {
+                    color: mutedTextColor,
+                  },
+                ]}
+              >
                 DISTANCE
               </Text>
 
             </View>
 
-            <View style={styles.metricDivider} />
+            <View
+              style={[
+                styles.metricDivider,
+                {
+                  backgroundColor: borderColor,
+                },
+              ]}
+            />
 
             {/* RIDE TIME */}
 
@@ -165,25 +392,54 @@ export default function HomeScreen() {
 
               <View style={styles.metricTopRow}>
 
-                <View style={styles.timeIcon}>
+                <View
+                  style={[
+                    styles.timeIcon,
+                    {
+                      backgroundColor:
+                        'rgba(124, 58, 237, 0.11)',
+                    },
+                  ]}
+                >
                   <Ionicons
                     name="time-outline"
                     size={19}
-                    color="#9B5CFF"
+                    color={purpleColor}
                   />
                 </View>
 
-                <Text style={styles.metricValue}>
+                <Text
+                  style={[
+                    styles.metricValue,
+                    {
+                      color: textColor,
+                    },
+                  ]}
+                >
                   34
                 </Text>
 
-                <Text style={styles.metricUnit}>
+                <Text
+                  style={[
+                    styles.metricUnit,
+                    {
+                      color: secondaryTextColor,
+                    },
+                  ]}
+                >
                   min
                 </Text>
 
               </View>
 
-              <Text style={styles.metricLabel}>
+              <Text
+                style={[
+                  styles.metricLabel,
+                  {
+                    color: mutedTextColor,
+                  },
+                ]}
+              >
                 RIDE TIME
               </Text>
 
@@ -193,23 +449,52 @@ export default function HomeScreen() {
 
           {/* SAFETY SUMMARY */}
 
-          <View style={styles.safetySummary}>
+          <View
+            style={[
+              styles.safetySummary,
+              {
+                borderTopColor: borderColor,
+              },
+            ]}
+          >
 
-            <View style={styles.safetyIcon}>
+            <View
+              style={[
+                styles.safetyIcon,
+                {
+                  backgroundColor:
+                    'rgba(0, 255, 157, 0.08)',
+                },
+              ]}
+            >
               <Ionicons
                 name="shield-checkmark-outline"
                 size={17}
-                color="#00FF9D"
+                color={greenColor}
               />
             </View>
 
             <View style={styles.safetyTextContainer}>
 
-              <Text style={styles.safetyCount}>
+              <Text
+                style={[
+                  styles.safetyCount,
+                  {
+                    color: textColor,
+                  },
+                ]}
+              >
                 2
               </Text>
 
-              <Text style={styles.safetyDescription}>
+              <Text
+                style={[
+                  styles.safetyDescription,
+                  {
+                    color: secondaryTextColor,
+                  },
+                ]}
+              >
                 safety events today
               </Text>
 
@@ -222,11 +507,24 @@ export default function HomeScreen() {
         {/* ================= AI RIDER INSIGHT ================= */}
 
         <TouchableOpacity
-          style={styles.aiCard}
+          style={[
+            styles.aiCard,
+            {
+              backgroundColor: cardColor,
+              borderColor,
+            },
+          ]}
           activeOpacity={0.8}
         >
 
-          <View style={styles.aiAccent} />
+          <View
+            style={[
+              styles.aiAccent,
+              {
+                backgroundColor: purpleColor,
+              },
+            ]}
+          />
 
           <View style={styles.aiInner}>
 
@@ -234,21 +532,43 @@ export default function HomeScreen() {
 
               <View style={styles.aiTitleSection}>
 
-                <View style={styles.aiIcon}>
+                <View
+                  style={[
+                    styles.aiIcon,
+                    {
+                      backgroundColor:
+                        'rgba(124, 58, 237, 0.11)',
+                    },
+                  ]}
+                >
                   <Ionicons
                     name="sparkles"
                     size={19}
-                    color="#9B5CFF"
+                    color={purpleColor}
                   />
                 </View>
 
                 <View>
 
-                  <Text style={styles.aiLabel}>
+                  <Text
+                    style={[
+                      styles.aiLabel,
+                      {
+                        color: mutedTextColor,
+                      },
+                    ]}
+                  >
                     AI RIDER INSIGHT
                   </Text>
 
-                  <Text style={styles.aiTimestamp}>
+                  <Text
+                    style={[
+                      styles.aiTimestamp,
+                      {
+                        color: mutedTextColor,
+                      },
+                    ]}
+                  >
                     JUST NOW
                   </Text>
 
@@ -259,25 +579,46 @@ export default function HomeScreen() {
               <Ionicons
                 name="chevron-forward"
                 size={19}
-                color="#7D8799"
+                color={mutedTextColor}
               />
 
             </View>
 
-            <Text style={styles.aiMessage}>
+            <Text
+              style={[
+                styles.aiMessage,
+                {
+                  color: textColor,
+                },
+              ]}
+            >
               Smooth riding detected today.
             </Text>
 
-            <View style={styles.aiFooter}>
+            <View
+              style={[
+                styles.aiFooter,
+                {
+                  borderTopColor: borderColor,
+                },
+              ]}
+            >
 
-              <Text style={styles.aiSource}>
+              <Text
+                style={[
+                  styles.aiSource,
+                  {
+                    color: mutedTextColor,
+                  },
+                ]}
+              >
                 Based on your riding pattern today
               </Text>
 
               <Ionicons
                 name="arrow-forward"
                 size={19}
-                color="#9B5CFF"
+                color={purpleColor}
               />
 
             </View>
@@ -287,80 +628,6 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
       </View>
-
-      {/* ================= BOTTOM NAVBAR ================= */}
-
-      <View
-        style={[
-          styles.bottomNav,
-          {
-            paddingBottom: Math.max(insets.bottom, 12),
-          },
-        ]}
-      >
-
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="home"
-            size={24}
-            color="#F6F8FC"
-          />
-
-          <Text style={[styles.navLabel, styles.navLabelActive]}>
-            Home
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="bar-chart-outline"
-            size={24}
-            color="#7D8799"
-          />
-
-          <Text style={styles.navLabel}>
-            Dashboard
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="notifications-outline"
-            size={24}
-            color="#7D8799"
-          />
-
-          <Text style={styles.navLabel}>
-            Alerts
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="settings-outline"
-            size={24}
-            color="#7D8799"
-          />
-
-          <Text style={styles.navLabel}>
-            Settings
-          </Text>
-        </TouchableOpacity>
-
-      </View>
-
     </View>
   );
 }
@@ -371,20 +638,18 @@ const styles = StyleSheet.create({
 
   screen: {
     flex: 1,
-    backgroundColor: '#0A0F1A',
   },
 
   /* ================= HEADER ================= */
 
   header: {
     width: '100%',
+
     paddingHorizontal: 16,
 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-
-    backgroundColor: '#0A0F1A',
   },
 
   brandSection: {
@@ -400,12 +665,10 @@ const styles = StyleSheet.create({
     height: 52,
 
     borderRadius: 16,
+
     overflow: 'hidden',
 
-    backgroundColor: '#131824',
-
     borderWidth: 1,
-    borderColor: '#1C2333',
   },
 
   logo: {
@@ -423,8 +686,6 @@ const styles = StyleSheet.create({
   },
 
   brandName: {
-    color: '#FFFFFF',
-
     fontSize: 19,
     fontWeight: '800',
 
@@ -432,8 +693,6 @@ const styles = StyleSheet.create({
   },
 
   aiA: {
-    color: '#7C3AED',
-
     fontSize: 19,
     fontWeight: '900',
 
@@ -442,8 +701,6 @@ const styles = StyleSheet.create({
   },
 
   aiI: {
-    color: '#00E5FF',
-
     fontSize: 19,
     fontWeight: '900',
 
@@ -461,10 +718,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: '#131824',
-
     borderWidth: 1,
-    borderColor: '#1C2333',
 
     position: 'relative',
   },
@@ -477,13 +731,10 @@ const styles = StyleSheet.create({
 
     borderRadius: 4,
 
-    backgroundColor: '#00E5FF',
-
     top: 7,
     right: 7,
 
     borderWidth: 1,
-    borderColor: '#131824',
   },
 
   /* ================= CONTENT ================= */
@@ -500,19 +751,15 @@ const styles = StyleSheet.create({
   /* ================= GREETING ================= */
 
   greeting: {
-    marginBottom: 20,
+    marginBottom: 8,
   },
 
   greetingTitle: {
-    color: '#F6F8FC',
-
     fontSize: 22,
     fontWeight: '700',
   },
 
   greetingSubtitle: {
-    color: '#8E9AAF',
-
     fontSize: 14,
 
     marginTop: 4,
@@ -531,12 +778,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
 
-    backgroundColor: '#131824',
-
     borderRadius: 18,
 
     borderWidth: 1,
-    borderColor: '#1C2333',
   },
 
   statusIndicatorContainer: {
@@ -557,8 +801,6 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'center',
-
-    backgroundColor: 'rgba(0, 255, 157, 0.08)',
   },
 
   statusDot: {
@@ -566,8 +808,6 @@ const styles = StyleSheet.create({
     height: 9,
 
     borderRadius: 5,
-
-    backgroundColor: '#00FF9D',
   },
 
   statusTextContainer: {
@@ -575,8 +815,6 @@ const styles = StyleSheet.create({
   },
 
   statusLabel: {
-    color: '#A0AABD',
-
     fontSize: 11,
     fontWeight: '700',
 
@@ -586,8 +824,6 @@ const styles = StyleSheet.create({
   },
 
   statusTitle: {
-    color: '#F6F8FC',
-
     fontSize: 15,
     fontWeight: '800',
 
@@ -595,8 +831,6 @@ const styles = StyleSheet.create({
   },
 
   statusDescription: {
-    color: '#8E9AAF',
-
     fontSize: 12,
 
     lineHeight: 17,
@@ -611,12 +845,9 @@ const styles = StyleSheet.create({
 
     padding: 18,
 
-    backgroundColor: '#131824',
-
     borderRadius: 18,
 
     borderWidth: 1,
-    borderColor: '#1C2333',
   },
 
   cardHeader: {
@@ -628,8 +859,6 @@ const styles = StyleSheet.create({
   },
 
   cardLabel: {
-    color: '#A0AABD',
-
     fontSize: 11,
     fontWeight: '700',
 
@@ -659,8 +888,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: 'rgba(0, 229, 255, 0.09)',
-
     marginRight: 10,
   },
 
@@ -673,14 +900,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: 'rgba(124, 58, 237, 0.11)',
-
     marginRight: 10,
   },
 
   metricValue: {
-    color: '#F6F8FC',
-
     fontSize: 24,
     fontWeight: '800',
 
@@ -688,8 +911,6 @@ const styles = StyleSheet.create({
   },
 
   metricUnit: {
-    color: '#8E9AAF',
-
     fontSize: 12,
     fontWeight: '600',
 
@@ -697,8 +918,6 @@ const styles = StyleSheet.create({
   },
 
   metricLabel: {
-    color: '#7D8799',
-
     fontSize: 10,
     fontWeight: '700',
 
@@ -710,8 +929,6 @@ const styles = StyleSheet.create({
   metricDivider: {
     width: 1,
     height: 40,
-
-    backgroundColor: '#1C2333',
 
     marginHorizontal: 8,
   },
@@ -725,7 +942,6 @@ const styles = StyleSheet.create({
     paddingTop: 14,
 
     borderTopWidth: 1,
-    borderTopColor: '#1C2333',
   },
 
   safetyIcon: {
@@ -737,8 +953,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: 'rgba(0, 255, 157, 0.08)',
-
     marginRight: 10,
   },
 
@@ -748,8 +962,6 @@ const styles = StyleSheet.create({
   },
 
   safetyCount: {
-    color: '#F6F8FC',
-
     fontSize: 13,
     fontWeight: '800',
 
@@ -757,8 +969,6 @@ const styles = StyleSheet.create({
   },
 
   safetyDescription: {
-    color: '#8E9AAF',
-
     fontSize: 12,
   },
 
@@ -769,12 +979,9 @@ const styles = StyleSheet.create({
 
     marginTop: 16,
 
-    backgroundColor: '#131824',
-
     borderRadius: 18,
 
     borderWidth: 1,
-    borderColor: '#1C2333',
 
     overflow: 'hidden',
   },
@@ -787,8 +994,6 @@ const styles = StyleSheet.create({
     bottom: 0,
 
     width: 3,
-
-    backgroundColor: '#7C3AED',
   },
 
   aiInner: {
@@ -817,14 +1022,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: 'rgba(124, 58, 237, 0.11)',
-
     marginRight: 10,
   },
 
   aiLabel: {
-    color: '#A0AABD',
-
     fontSize: 11,
     fontWeight: '700',
 
@@ -832,8 +1033,6 @@ const styles = StyleSheet.create({
   },
 
   aiTimestamp: {
-    color: '#6F788A',
-
     fontSize: 9,
     fontWeight: '600',
 
@@ -843,8 +1042,6 @@ const styles = StyleSheet.create({
   },
 
   aiMessage: {
-    color: '#F6F8FC',
-
     fontSize: 17,
     fontWeight: '700',
 
@@ -862,56 +1059,11 @@ const styles = StyleSheet.create({
     paddingTop: 14,
 
     borderTopWidth: 1,
-    borderTopColor: '#1C2333',
   },
 
   aiSource: {
-    color: '#7D8799',
-
     fontSize: 11,
     fontWeight: '500',
-  },
-
-  /* ================= BOTTOM NAVBAR ================= */
-
-  bottomNav: {
-    position: 'absolute',
-
-    left: 0,
-    right: 0,
-    bottom: 0,
-
-    paddingTop: 10,
-
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-around',
-
-    backgroundColor: '#0A0F1A',
-
-    borderTopWidth: 1,
-    borderTopColor: '#1C2333',
-  },
-
-  navItem: {
-    flex: 1,
-
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-
-  navLabel: {
-    color: '#6F788A',
-
-    fontSize: 11,
-    fontWeight: '600',
-
-    marginTop: 4,
-  },
-
-  navLabelActive: {
-    color: '#F6F8FC',
-    fontWeight: '700',
   },
 
 });

@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useThemeColor } from '@/hooks/use-theme-color';
+
 type TabIconName = keyof typeof Ionicons.glyphMap;
 
 type CustomTabButtonProps = {
@@ -27,6 +29,20 @@ function CustomTabButton({
   label,
   isFocused = false,
 }: CustomTabButtonProps) {
+  const activeColor = useThemeColor(
+    {},
+    'tabIconSelected'
+  );
+
+  const inactiveColor = useThemeColor(
+    {},
+    'tabIconDefault'
+  );
+
+  const iconColor = isFocused
+    ? activeColor
+    : inactiveColor;
+
   return (
     <View style={styles.tabContent}>
       {/* ICON */}
@@ -39,7 +55,7 @@ function CustomTabButton({
         <Ionicons
           name={icon}
           size={23}
-          color={isFocused ? '#F6F8FC' : '#707A8D'}
+          color={iconColor}
         />
       </View>
 
@@ -47,6 +63,9 @@ function CustomTabButton({
       <Text
         style={[
           styles.tabLabel,
+          {
+            color: iconColor,
+          },
           isFocused
             ? styles.tabLabelActive
             : styles.tabLabelInactive,
@@ -84,6 +103,16 @@ function TabButton({
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
 
+  const navBackground = useThemeColor(
+    {},
+    'navBackground'
+  );
+
+  const navBorder = useThemeColor(
+    {},
+    'navBorder'
+  );
+
   return (
     <Tabs>
       {/* CURRENT SCREEN */}
@@ -94,7 +123,12 @@ export default function TabLayout() {
         style={[
           styles.tabBar,
           {
-            paddingBottom: Math.max(insets.bottom, 9),
+            backgroundColor: navBackground,
+            borderTopColor: navBorder,
+            paddingBottom: Math.max(
+              insets.bottom,
+              9
+            ),
           },
         ]}
       >
@@ -171,10 +205,7 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     paddingHorizontal: 8,
 
-    backgroundColor: '#111111',
-
     borderTopWidth: 1,
-    borderTopColor: '#1B2230',
   },
 
   /* =========================
@@ -214,7 +245,8 @@ const styles = StyleSheet.create({
   },
 
   iconWrapperActive: {
-    backgroundColor: 'rgba(124, 58, 237, 0.14)',
+    backgroundColor:
+      'rgba(124, 58, 237, 0.14)',
   },
 
   /* =========================
@@ -230,14 +262,10 @@ const styles = StyleSheet.create({
   },
 
   tabLabelActive: {
-    color: '#F6F8FC',
-
     fontWeight: '700',
   },
 
   tabLabelInactive: {
-    color: '#707A8D',
-
     fontWeight: '600',
   },
 });
