@@ -23,9 +23,11 @@ export default function Settings() {
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
 
-  const [appearanceVisible, setAppearanceVisible] = useState(false);
+  const [appearanceVisible, setAppearanceVisible] =
+    useState(false);
 
-  const [themeMode, setThemeMode] = useState<ThemeMode>("auto");
+  const [themeMode, setThemeMode] =
+    useState<ThemeMode>("auto");
 
   // ================= THEME COLORS =================
 
@@ -34,8 +36,14 @@ export default function Settings() {
   const borderColor = useThemeColor({}, "border");
 
   const textColor = useThemeColor({}, "text");
-  const secondaryTextColor = useThemeColor({}, "textSecondary");
-  const mutedTextColor = useThemeColor({}, "textMuted");
+  const secondaryTextColor = useThemeColor(
+    {},
+    "textSecondary"
+  );
+  const mutedTextColor = useThemeColor(
+    {},
+    "textMuted"
+  );
 
   const cyanColor = useThemeColor({}, "cyan");
   const greenColor = useThemeColor({}, "green");
@@ -47,7 +55,10 @@ export default function Settings() {
   useEffect(() => {
     const loadTheme = async () => {
       try {
-        const savedTheme = await AsyncStorage.getItem("motosense-theme");
+        const savedTheme =
+          await AsyncStorage.getItem(
+            "motosense-theme"
+          );
 
         if (savedTheme === "light") {
           setThemeMode("light");
@@ -57,7 +68,10 @@ export default function Settings() {
           setThemeMode("auto");
         }
       } catch (error) {
-        console.log("Failed to load saved theme:", error);
+        console.log(
+          "Failed to load saved theme:",
+          error
+        );
       }
     };
 
@@ -66,37 +80,54 @@ export default function Settings() {
 
   // ================= CHANGE THEME =================
 
-  const changeTheme = async (mode: ThemeMode) => {
+  const changeTheme = async (
+    mode: ThemeMode
+  ) => {
     try {
       setThemeMode(mode);
 
       if (mode === "auto") {
         Appearance.setColorScheme(null);
 
-        await AsyncStorage.setItem("motosense-theme", "system");
+        await AsyncStorage.setItem(
+          "motosense-theme",
+          "system"
+        );
       }
 
       if (mode === "light") {
         Appearance.setColorScheme("light");
 
-        await AsyncStorage.setItem("motosense-theme", "light");
+        await AsyncStorage.setItem(
+          "motosense-theme",
+          "light"
+        );
       }
 
       if (mode === "dark") {
         Appearance.setColorScheme("dark");
 
-        await AsyncStorage.setItem("motosense-theme", "dark");
+        await AsyncStorage.setItem(
+          "motosense-theme",
+          "dark"
+        );
       }
 
       setAppearanceVisible(false);
     } catch (error) {
-      console.log("Failed to change theme:", error);
+      console.log(
+        "Failed to change theme:",
+        error
+      );
     }
   };
 
   // ================= CURRENT MODE =================
 
-  const currentDisplayMode = colorScheme === "dark" ? "Night Mode" : "Day Mode";
+  const currentDisplayMode =
+    colorScheme === "dark"
+      ? "Night Mode"
+      : "Day Mode";
 
   // ================= AUTO TOGGLE =================
 
@@ -104,6 +135,7 @@ export default function Settings() {
     if (themeMode === "auto") {
       // Turn Auto Adapt OFF
       // Keep the currently displayed mode
+
       if (colorScheme === "dark") {
         changeTheme("dark");
       } else {
@@ -149,7 +181,11 @@ export default function Settings() {
           activeOpacity={0.75}
           onPress={() => router.back()}
         >
-          <Ionicons name="arrow-back" size={22} color={textColor} />
+          <Ionicons
+            name="arrow-back"
+            size={22}
+            color={textColor}
+          />
         </TouchableOpacity>
 
         <Text
@@ -173,7 +209,8 @@ export default function Settings() {
         contentContainerStyle={[
           styles.content,
           {
-            paddingBottom: 120 + insets.bottom,
+            paddingBottom:
+              120 + insets.bottom,
           },
         ]}
         showsVerticalScrollIndicator={false}
@@ -200,17 +237,24 @@ export default function Settings() {
             },
           ]}
           activeOpacity={0.8}
-          onPress={() => router.push("/rider-profile")}
+          onPress={() =>
+            router.push("/rider-profile")
+          }
         >
           <View
             style={[
               styles.profileIcon,
               {
-                backgroundColor: "rgba(0, 229, 255, 0.09)",
+                backgroundColor:
+                  "rgba(0, 229, 255, 0.09)",
               },
             ]}
           >
-            <Ionicons name="person-outline" size={23} color={cyanColor} />
+            <Ionicons
+              name="person-outline"
+              size={23}
+              color={cyanColor}
+            />
           </View>
 
           <View style={styles.profileText}>
@@ -229,7 +273,8 @@ export default function Settings() {
               style={[
                 styles.profileDescription,
                 {
-                  color: secondaryTextColor,
+                  color:
+                    secondaryTextColor,
                 },
               ]}
             >
@@ -237,7 +282,11 @@ export default function Settings() {
             </Text>
           </View>
 
-          <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+          <Ionicons
+            name="chevron-forward"
+            size={19}
+            color={mutedTextColor}
+          />
         </TouchableOpacity>
 
         {/* ================= BIKE ================= */}
@@ -264,17 +313,24 @@ export default function Settings() {
             },
           ]}
           activeOpacity={0.8}
-          onPress={() => router.push("/connected-bike")}
+          onPress={() =>
+            router.push("/connected-bike")
+          }
         >
           <View
             style={[
               styles.iconBoxCyan,
               {
-                backgroundColor: "rgba(0, 229, 255, 0.09)",
+                backgroundColor:
+                  "rgba(0, 229, 255, 0.09)",
               },
             ]}
           >
-            <Ionicons name="bicycle-outline" size={22} color={cyanColor} />
+            <Ionicons
+              name="bicycle-outline"
+              size={22}
+              color={cyanColor}
+            />
           </View>
 
           <View style={styles.rowText}>
@@ -289,12 +345,15 @@ export default function Settings() {
               Connected Bike
             </Text>
 
-            <View style={styles.connectionRow}>
+            <View
+              style={styles.connectionRow}
+            >
               <View
                 style={[
                   styles.connectionDot,
                   {
-                    backgroundColor: greenColor,
+                    backgroundColor:
+                      greenColor,
                   },
                 ]}
               />
@@ -303,7 +362,8 @@ export default function Settings() {
                 style={[
                   styles.rowDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -312,7 +372,11 @@ export default function Settings() {
             </View>
           </View>
 
-          <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+          <Ionicons
+            name="chevron-forward"
+            size={19}
+            color={mutedTextColor}
+          />
         </TouchableOpacity>
 
         {/* ================= SAFETY ================= */}
@@ -341,17 +405,26 @@ export default function Settings() {
           <TouchableOpacity
             style={styles.settingRow}
             activeOpacity={0.8}
-            onPress={() => router.push("/emergency-contacts")}
+            onPress={() =>
+              router.push(
+                "/emergency-contacts"
+              )
+            }
           >
             <View
               style={[
                 styles.iconBoxGreen,
                 {
-                  backgroundColor: "rgba(0, 255, 157, 0.08)",
+                  backgroundColor:
+                    "rgba(0, 255, 157, 0.08)",
                 },
               ]}
             >
-              <Ionicons name="people-outline" size={22} color={greenColor} />
+              <Ionicons
+                name="people-outline"
+                size={22}
+                color={greenColor}
+              />
             </View>
 
             <View style={styles.rowText}>
@@ -370,7 +443,8 @@ export default function Settings() {
                 style={[
                   styles.rowDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -378,24 +452,36 @@ export default function Settings() {
               </Text>
             </View>
 
-            <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+            <Ionicons
+              name="chevron-forward"
+              size={19}
+              color={mutedTextColor}
+            />
           </TouchableOpacity>
 
           <View
             style={[
               styles.divider,
               {
-                backgroundColor: borderColor,
+                backgroundColor:
+                  borderColor,
               },
             ]}
           />
 
-          <TouchableOpacity style={styles.settingRow} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.settingRow}
+            activeOpacity={0.8}
+            onPress={() =>
+              router.push("/sos-settings")
+            }
+          >
             <View
               style={[
                 styles.iconBoxRed,
                 {
-                  backgroundColor: "rgba(255, 77, 77, 0.09)",
+                  backgroundColor:
+                    "rgba(255, 77, 77, 0.09)",
                 },
               ]}
             >
@@ -422,7 +508,8 @@ export default function Settings() {
                 style={[
                   styles.rowDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -430,7 +517,11 @@ export default function Settings() {
               </Text>
             </View>
 
-            <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+            <Ionicons
+              name="chevron-forward"
+              size={19}
+              color={mutedTextColor}
+            />
           </TouchableOpacity>
         </View>
 
@@ -459,12 +550,21 @@ export default function Settings() {
         >
           {/* NOTIFICATIONS */}
 
-          <TouchableOpacity style={styles.settingRow} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.settingRow}
+            activeOpacity={0.8}
+            onPress={() =>
+              router.push(
+                "/notification-settings"
+              )
+            }
+          >
             <View
               style={[
                 styles.iconBoxCyan,
                 {
-                  backgroundColor: "rgba(0, 229, 255, 0.09)",
+                  backgroundColor:
+                    "rgba(0, 229, 255, 0.09)",
                 },
               ]}
             >
@@ -491,7 +591,8 @@ export default function Settings() {
                 style={[
                   styles.rowDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -499,64 +600,19 @@ export default function Settings() {
               </Text>
             </View>
 
-            <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+            <Ionicons
+              name="chevron-forward"
+              size={19}
+              color={mutedTextColor}
+            />
           </TouchableOpacity>
 
           <View
             style={[
               styles.divider,
               {
-                backgroundColor: borderColor,
-              },
-            ]}
-          />
-
-          {/* ALERT PREFERENCES */}
-
-          <TouchableOpacity style={styles.settingRow} activeOpacity={0.8}>
-            <View
-              style={[
-                styles.iconBoxPurple,
-                {
-                  backgroundColor: "rgba(124, 58, 237, 0.11)",
-                },
-              ]}
-            >
-              <Ionicons name="options-outline" size={22} color={purpleColor} />
-            </View>
-
-            <View style={styles.rowText}>
-              <Text
-                style={[
-                  styles.rowTitle,
-                  {
-                    color: textColor,
-                  },
-                ]}
-              >
-                Alert Preferences
-              </Text>
-
-              <Text
-                style={[
-                  styles.rowDescription,
-                  {
-                    color: secondaryTextColor,
-                  },
-                ]}
-              >
-                Customize safety alerts
-              </Text>
-            </View>
-
-            <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
-          </TouchableOpacity>
-
-          <View
-            style={[
-              styles.divider,
-              {
-                backgroundColor: borderColor,
+                backgroundColor:
+                  borderColor,
               },
             ]}
           />
@@ -566,13 +622,16 @@ export default function Settings() {
           <TouchableOpacity
             style={styles.settingRow}
             activeOpacity={0.8}
-            onPress={() => setAppearanceVisible(true)}
+            onPress={() =>
+              setAppearanceVisible(true)
+            }
           >
             <View
               style={[
                 styles.iconBoxPurple,
                 {
-                  backgroundColor: "rgba(124, 58, 237, 0.11)",
+                  backgroundColor:
+                    "rgba(124, 58, 237, 0.11)",
                 },
               ]}
             >
@@ -599,7 +658,8 @@ export default function Settings() {
                 style={[
                   styles.rowDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -609,7 +669,11 @@ export default function Settings() {
               </Text>
             </View>
 
-            <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+            <Ionicons
+              name="chevron-forward"
+              size={19}
+              color={mutedTextColor}
+            />
           </TouchableOpacity>
         </View>
 
@@ -636,12 +700,19 @@ export default function Settings() {
             },
           ]}
         >
-          <TouchableOpacity style={styles.settingRow} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.settingRow}
+            activeOpacity={0.8}
+            onPress={() =>
+              router.push("/about")
+            }
+          >
             <View
               style={[
                 styles.iconBoxPurple,
                 {
-                  backgroundColor: "rgba(124, 58, 237, 0.11)",
+                  backgroundColor:
+                    "rgba(124, 58, 237, 0.11)",
                 },
               ]}
             >
@@ -668,7 +739,8 @@ export default function Settings() {
                 style={[
                   styles.rowDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -676,7 +748,11 @@ export default function Settings() {
               </Text>
             </View>
 
-            <Ionicons name="chevron-forward" size={19} color={mutedTextColor} />
+            <Ionicons
+              name="chevron-forward"
+              size={19}
+              color={mutedTextColor}
+            />
           </TouchableOpacity>
         </View>
 
@@ -713,7 +789,9 @@ export default function Settings() {
         visible={appearanceVisible}
         transparent
         animationType="slide"
-        onRequestClose={() => setAppearanceVisible(false)}
+        onRequestClose={() =>
+          setAppearanceVisible(false)
+        }
       >
         <View style={styles.modalOverlay}>
           {/* BACKDROP */}
@@ -721,7 +799,9 @@ export default function Settings() {
           <TouchableOpacity
             style={styles.modalBackdrop}
             activeOpacity={1}
-            onPress={() => setAppearanceVisible(false)}
+            onPress={() =>
+              setAppearanceVisible(false)
+            }
           />
 
           {/* SHEET */}
@@ -741,7 +821,8 @@ export default function Settings() {
               style={[
                 styles.sheetHandle,
                 {
-                  backgroundColor: borderColor,
+                  backgroundColor:
+                    borderColor,
                 },
               ]}
             />
@@ -753,7 +834,8 @@ export default function Settings() {
                 style={[
                   styles.adaptiveIcon,
                   {
-                    backgroundColor: "rgba(124, 58, 237, 0.11)",
+                    backgroundColor:
+                      "rgba(124, 58, 237, 0.11)",
                   },
                 ]}
               >
@@ -779,11 +861,13 @@ export default function Settings() {
                 style={[
                   styles.sheetSubtitle,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
-                Let MotoSense adjust the interface automatically.
+                Let MotoSense adjust the
+                interface automatically.
               </Text>
             </View>
 
@@ -798,7 +882,10 @@ export default function Settings() {
                       ? "rgba(124, 58, 237, 0.09)"
                       : "transparent",
 
-                  borderColor: themeMode === "auto" ? purpleColor : borderColor,
+                  borderColor:
+                    themeMode === "auto"
+                      ? purpleColor
+                      : borderColor,
                 },
               ]}
             >
@@ -816,7 +903,11 @@ export default function Settings() {
                 <Ionicons
                   name="contrast-outline"
                   size={22}
-                  color={themeMode === "auto" ? purpleColor : mutedTextColor}
+                  color={
+                    themeMode === "auto"
+                      ? purpleColor
+                      : mutedTextColor
+                  }
                 />
               </View>
 
@@ -836,11 +927,13 @@ export default function Settings() {
                   style={[
                     styles.autoDescription,
                     {
-                      color: secondaryTextColor,
+                      color:
+                        secondaryTextColor,
                     },
                   ]}
                 >
-                  Automatically follow your device appearance.
+                  Automatically follow your
+                  device appearance.
                 </Text>
 
                 {themeMode === "auto" && (
@@ -852,7 +945,8 @@ export default function Settings() {
                       },
                     ]}
                   >
-                    Currently using {currentDisplayMode}
+                    Currently using{" "}
+                    {currentDisplayMode}
                   </Text>
                 )}
               </View>
@@ -864,7 +958,9 @@ export default function Settings() {
                   styles.toggleTrack,
                   {
                     backgroundColor:
-                      themeMode === "auto" ? purpleColor : borderColor,
+                      themeMode === "auto"
+                        ? purpleColor
+                        : borderColor,
                   },
                 ]}
                 activeOpacity={0.8}
@@ -876,7 +972,10 @@ export default function Settings() {
                     {
                       transform: [
                         {
-                          translateX: themeMode === "auto" ? 10 : -10,
+                          translateX:
+                            themeMode === "auto"
+                              ? 10
+                              : -10,
                         },
                       ],
                     },
@@ -910,21 +1009,30 @@ export default function Settings() {
                       : "transparent",
 
                   borderColor:
-                    themeMode === "light" ? purpleColor : borderColor,
+                    themeMode === "light"
+                      ? purpleColor
+                      : borderColor,
                 },
               ]}
               activeOpacity={0.8}
-              onPress={() => changeTheme("light")}
+              onPress={() =>
+                changeTheme("light")
+              }
             >
               <View
                 style={[
                   styles.modeIcon,
                   {
-                    backgroundColor: "rgba(0, 229, 255, 0.09)",
+                    backgroundColor:
+                      "rgba(0, 229, 255, 0.09)",
                   },
                 ]}
               >
-                <Ionicons name="sunny-outline" size={21} color={cyanColor} />
+                <Ionicons
+                  name="sunny-outline"
+                  size={21}
+                  color={cyanColor}
+                />
               </View>
 
               <View style={styles.modeText}>
@@ -943,7 +1051,8 @@ export default function Settings() {
                   style={[
                     styles.modeDescription,
                     {
-                      color: secondaryTextColor,
+                      color:
+                        secondaryTextColor,
                     },
                   ]}
                 >
@@ -971,21 +1080,31 @@ export default function Settings() {
                       ? "rgba(124, 58, 237, 0.09)"
                       : "transparent",
 
-                  borderColor: themeMode === "dark" ? purpleColor : borderColor,
+                  borderColor:
+                    themeMode === "dark"
+                      ? purpleColor
+                      : borderColor,
                 },
               ]}
               activeOpacity={0.8}
-              onPress={() => changeTheme("dark")}
+              onPress={() =>
+                changeTheme("dark")
+              }
             >
               <View
                 style={[
                   styles.modeIcon,
                   {
-                    backgroundColor: "rgba(124, 58, 237, 0.11)",
+                    backgroundColor:
+                      "rgba(124, 58, 237, 0.11)",
                   },
                 ]}
               >
-                <Ionicons name="moon-outline" size={21} color={purpleColor} />
+                <Ionicons
+                  name="moon-outline"
+                  size={21}
+                  color={purpleColor}
+                />
               </View>
 
               <View style={styles.modeText}>
@@ -1004,7 +1123,8 @@ export default function Settings() {
                   style={[
                     styles.modeDescription,
                     {
-                      color: secondaryTextColor,
+                      color:
+                        secondaryTextColor,
                     },
                   ]}
                 >
@@ -1026,7 +1146,9 @@ export default function Settings() {
             <TouchableOpacity
               style={styles.cancelButton}
               activeOpacity={0.8}
-              onPress={() => setAppearanceVisible(false)}
+              onPress={() =>
+                setAppearanceVisible(false)
+              }
             >
               <Text
                 style={[
@@ -1051,7 +1173,10 @@ export default function Settings() {
           {
             backgroundColor: cardColor,
             borderTopColor: borderColor,
-            paddingBottom: Math.max(insets.bottom, 12),
+            paddingBottom: Math.max(
+              insets.bottom,
+              12
+            ),
           },
         ]}
       >
@@ -1060,7 +1185,11 @@ export default function Settings() {
           activeOpacity={0.7}
           onPress={() => router.push("/")}
         >
-          <Ionicons name="home-outline" size={24} color={mutedTextColor} />
+          <Ionicons
+            name="home-outline"
+            size={24}
+            color={mutedTextColor}
+          />
 
           <Text
             style={[
@@ -1074,8 +1203,15 @@ export default function Settings() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
-          <Ionicons name="bar-chart-outline" size={24} color={mutedTextColor} />
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+        >
+          <Ionicons
+            name="bar-chart-outline"
+            size={24}
+            color={mutedTextColor}
+          />
 
           <Text
             style={[
@@ -1089,7 +1225,10 @@ export default function Settings() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+        >
           <Ionicons
             name="notifications-outline"
             size={24}
@@ -1108,8 +1247,15 @@ export default function Settings() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
-          <Ionicons name="settings" size={24} color={textColor} />
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+        >
+          <Ionicons
+            name="settings"
+            size={24}
+            color={textColor}
+          />
 
           <Text
             style={[

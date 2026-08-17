@@ -9,6 +9,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 
 import Motorcycle3D from '@/components/Motorcycle3D';
 import { useThemeColor } from '@/hooks/use-theme-color';
@@ -62,6 +63,12 @@ export default function HomeScreen() {
     {},
     'tint'
   );
+
+  // ================= NOTIFICATIONS =================
+
+  // Temporary frontend value.
+  // Later this will come from the backend.
+  const unreadNotificationCount = 2;
 
   return (
     <View
@@ -146,6 +153,8 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        {/* ================= NOTIFICATION BUTTON ================= */}
+
         <TouchableOpacity
           style={[
             styles.notificationButton,
@@ -155,6 +164,9 @@ export default function HomeScreen() {
             },
           ]}
           activeOpacity={0.75}
+          onPress={() =>
+            router.push('/notifications')
+          }
         >
           <Ionicons
             name="notifications-outline"
@@ -162,15 +174,29 @@ export default function HomeScreen() {
             color={textColor}
           />
 
-          <View
-            style={[
-              styles.notificationDot,
-              {
-                backgroundColor: cyanColor,
-                borderColor: cardColor,
-              },
-            ]}
-          />
+          {/* UNREAD COUNT BADGE */}
+          {unreadNotificationCount > 0 && (
+            <View
+              style={[
+                styles.notificationBadge,
+                {
+                  backgroundColor:
+                    purpleColor,
+                  borderColor: cardColor,
+                },
+              ]}
+            >
+              <Text
+                style={
+                  styles.notificationBadgeText
+                }
+              >
+                {unreadNotificationCount > 9
+                  ? '9+'
+                  : unreadNotificationCount}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -220,7 +246,11 @@ export default function HomeScreen() {
           ]}
         >
 
-          <View style={styles.statusIndicatorContainer}>
+          <View
+            style={
+              styles.statusIndicatorContainer
+            }
+          >
             <View
               style={[
                 styles.statusGlow,
@@ -355,7 +385,8 @@ export default function HomeScreen() {
                   style={[
                     styles.metricUnit,
                     {
-                      color: secondaryTextColor,
+                      color:
+                        secondaryTextColor,
                     },
                   ]}
                 >
@@ -423,7 +454,8 @@ export default function HomeScreen() {
                   style={[
                     styles.metricUnit,
                     {
-                      color: secondaryTextColor,
+                      color:
+                        secondaryTextColor,
                     },
                   ]}
                 >
@@ -474,7 +506,9 @@ export default function HomeScreen() {
               />
             </View>
 
-            <View style={styles.safetyTextContainer}>
+            <View
+              style={styles.safetyTextContainer}
+            >
 
               <Text
                 style={[
@@ -491,7 +525,8 @@ export default function HomeScreen() {
                 style={[
                   styles.safetyDescription,
                   {
-                    color: secondaryTextColor,
+                    color:
+                      secondaryTextColor,
                   },
                 ]}
               >
@@ -554,7 +589,8 @@ export default function HomeScreen() {
                     style={[
                       styles.aiLabel,
                       {
-                        color: mutedTextColor,
+                        color:
+                          mutedTextColor,
                       },
                     ]}
                   >
@@ -565,7 +601,8 @@ export default function HomeScreen() {
                     style={[
                       styles.aiTimestamp,
                       {
-                        color: mutedTextColor,
+                        color:
+                          mutedTextColor,
                       },
                     ]}
                   >
@@ -723,18 +760,36 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
 
-  notificationDot: {
+  /* ================= NOTIFICATION BADGE ================= */
+
+  notificationBadge: {
     position: 'absolute',
 
-    width: 7,
-    height: 7,
+    minWidth: 18,
+    height: 18,
 
-    borderRadius: 4,
+    paddingHorizontal: 4,
 
-    top: 7,
-    right: 7,
+    borderRadius: 9,
 
-    borderWidth: 1,
+    top: -4,
+    right: -4,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderWidth: 2,
+  },
+
+  notificationBadgeText: {
+    color: '#FFFFFF',
+
+    fontSize: 9,
+    fontWeight: '800',
+
+    lineHeight: 11,
+
+    textAlign: 'center',
   },
 
   /* ================= CONTENT ================= */

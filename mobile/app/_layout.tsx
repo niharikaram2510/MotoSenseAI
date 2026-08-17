@@ -60,7 +60,26 @@ export default function RootLayout() {
           name="emergency-contacts"
           options={{ headerShown: false }}
         />
-
+        <Stack.Screen name="sos-settings" options={{ headerShown: false }} />
+        <Stack.Screen name="about" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="alert-details"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="notifications"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="notification-settings"
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="modal"
           options={{

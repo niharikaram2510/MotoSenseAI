@@ -29,10 +29,8 @@ function CustomTabButton({
   label,
   isFocused = false,
 }: CustomTabButtonProps) {
-  const activeColor = useThemeColor(
-    {},
-    'tabIconSelected'
-  );
+  // MotoSense active tab color
+  const activeColor = '#7C3AED';
 
   const inactiveColor = useThemeColor(
     {},
@@ -54,7 +52,7 @@ function CustomTabButton({
       >
         <Ionicons
           name={icon}
-          size={23}
+          size={22}
           color={iconColor}
         />
       </View>
@@ -127,7 +125,7 @@ export default function TabLayout() {
             borderTopColor: navBorder,
             paddingBottom: Math.max(
               insets.bottom,
-              9
+              5
             ),
           },
         ]}
@@ -196,14 +194,14 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
 
-    minHeight: 72,
+    minHeight: 64,
 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    paddingTop: 7,
-    paddingHorizontal: 8,
+    paddingTop: 3,
+    paddingHorizontal: 6,
 
     borderTopWidth: 1,
   },
@@ -215,7 +213,7 @@ const styles = StyleSheet.create({
   tabButton: {
     flex: 1,
 
-    height: 61,
+    height: 54,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -224,7 +222,7 @@ const styles = StyleSheet.create({
   tabContent: {
     width: '100%',
 
-    height: 61,
+    height: 54,
 
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -235,13 +233,13 @@ const styles = StyleSheet.create({
   ========================= */
 
   iconWrapper: {
-    width: 38,
-    height: 34,
+    width: 36,
+    height: 31,
 
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 11,
+    borderRadius: 10,
   },
 
   iconWrapperActive: {
@@ -256,7 +254,7 @@ const styles = StyleSheet.create({
   tabLabel: {
     fontSize: 10.5,
 
-    marginTop: 3,
+    marginTop: 2,
 
     lineHeight: 14,
   },
