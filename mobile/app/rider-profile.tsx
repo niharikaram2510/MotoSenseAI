@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -16,6 +17,7 @@ import { useThemeColor } from '@/hooks/use-theme-color';
 
 export default function RiderProfile() {
   const insets = useSafeAreaInsets();
+  const isWeb = Platform.OS === 'web';
 
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('Rider');
@@ -105,6 +107,7 @@ export default function RiderProfile() {
           styles.content,
           {
             paddingBottom: 40 + insets.bottom,
+            ...(isWeb ? { paddingTop: 12 } : {}),
           },
         ]}
         showsVerticalScrollIndicator={false}
@@ -117,6 +120,12 @@ export default function RiderProfile() {
             {
               backgroundColor: cardColor,
               borderColor,
+              ...(isWeb
+                ? {
+                    height: 240,
+                    paddingVertical: 10,
+                  }
+                : {}),
             },
           ]}
         >

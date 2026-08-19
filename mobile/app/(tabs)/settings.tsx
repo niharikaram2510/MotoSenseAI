@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Appearance,
   Modal,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -113,6 +114,21 @@ export default function Settings() {
         );
       }
 
+      // On web, Appearance.setColorScheme() does not
+      // reliably notify every screen. The Settings screen
+      // itself already updates through themeMode, so notify
+      // the rest of the web app without changing routing.
+      if (Platform.OS === "web") {
+        window.localStorage.setItem(
+          "motosense-theme",
+          mode === "auto" ? "system" : mode
+        );
+
+        window.dispatchEvent(
+          new Event("motosense-theme-change")
+        );
+      }
+
       setAppearanceVisible(false);
     } catch (error) {
       console.log(
@@ -210,7 +226,9 @@ export default function Settings() {
           styles.content,
           {
             paddingBottom:
-              120 + insets.bottom,
+              Platform.OS === "web"
+                ? 40
+                : 120 + insets.bottom,
           },
         ]}
         showsVerticalScrollIndicator={false}
@@ -1167,9 +1185,10 @@ export default function Settings() {
 
       {/* ================= BOTTOM NAV ================= */}
 
-      <View
-        style={[
-          styles.bottomNav,
+      {Platform.OS !== "web" && (
+        <View
+          style={[
+            styles.bottomNav,
           {
             backgroundColor: cardColor,
             borderTopColor: borderColor,
@@ -1269,7 +1288,8 @@ export default function Settings() {
             Settings
           </Text>
         </TouchableOpacity>
-      </View>
+        </View>
+      )}
     </View>
   );
 }

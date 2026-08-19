@@ -1,21 +1,26 @@
-/**
- * Learn more about light and dark modes:
- * https://docs.expo.dev/guides/color-schemes/
- */
-
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Platform } from "react-native";
+import { Colors } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  const theme = useColorScheme() ?? 'light';
-  const colorFromProps = props[theme];
+  // Always call the hook first.
+  const theme = useColorScheme() ?? "light";
+
+  // Temporary: keep the WEB UI in the existing dark theme.
+  // Mobile continues using the normal light/dark theme system.
+  const activeTheme =
+    Platform.OS === "web"
+      ? "dark"
+      : theme;
+
+  const colorFromProps = props[activeTheme];
 
   if (colorFromProps) {
     return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
   }
+
+  return Colors[activeTheme][colorName];
 }

@@ -71,13 +71,14 @@ export default function WebLayout() {
 
       <View style={styles.sidebar}>
 
-        {/* BRAND */}
+        {/* ================= BRAND ================= */}
 
         <View style={styles.brandSection}>
+
           <View style={styles.logoBox}>
             <Ionicons
               name="bicycle"
-              size={28}
+              size={27}
               color="#00E5FF"
             />
           </View>
@@ -91,13 +92,14 @@ export default function WebLayout() {
               AI
             </Text>
           </View>
+
         </View>
 
         {/* DIVIDER */}
 
         <View style={styles.divider} />
 
-        {/* NAVIGATION */}
+        {/* ================= NAVIGATION ================= */}
 
         <View style={styles.navigation}>
 
@@ -113,6 +115,7 @@ export default function WebLayout() {
                   active && styles.navItemActive,
                 ]}
               >
+
                 <View
                   style={[
                     styles.navIconBox,
@@ -122,7 +125,7 @@ export default function WebLayout() {
                 >
                   <Ionicons
                     name={item.icon}
-                    size={21}
+                    size={22}
                     color={
                       active
                         ? '#7C3AED'
@@ -137,35 +140,39 @@ export default function WebLayout() {
                     active &&
                       styles.navLabelActive,
                   ]}
+                  numberOfLines={1}
                 >
                   {item.label}
                 </Text>
+
               </Pressable>
             );
           })}
 
         </View>
 
-        {/* CONNECTED BIKE */}
+        {/* ================= CONNECTED BIKE ================= */}
 
         <View style={styles.connectionSection}>
 
           <View style={styles.connectionCard}>
 
-            <View style={styles.connectionRow}>
+            <View style={styles.connectionDot} />
 
-              <View
-                style={styles.connectionDot}
-              />
+            <Text style={styles.connectionTitle}>
+              Bike
+            </Text>
 
-              <Text style={styles.connectionTitle}>
-                Bike Connected
-              </Text>
-
-            </View>
+            <Text style={styles.connectionTitle}>
+              Connected
+            </Text>
 
             <Text style={styles.connectionSubtitle}>
-              Last synced just now
+              Last synced
+            </Text>
+
+            <Text style={styles.connectionSubtitle}>
+              just now
             </Text>
 
           </View>
@@ -214,7 +221,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
 
-    width: 240,
+    width: 125,
 
     backgroundColor: '#0A0F1A',
 
@@ -224,6 +231,8 @@ const styles = StyleSheet.create({
     zIndex: 100,
 
     flexDirection: 'column',
+
+    alignItems: 'center',
   },
 
   /* =====================================================
@@ -231,12 +240,12 @@ const styles = StyleSheet.create({
   ===================================================== */
 
   brandSection: {
-    height: 112,
+    height: 120,
 
-    paddingHorizontal: 20,
+    width: '100%',
 
-    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
   logoBox: {
@@ -255,30 +264,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    marginRight: 12,
+    marginBottom: 8,
   },
 
   brandTextContainer: {
     flexDirection: 'row',
     alignItems: 'baseline',
+    justifyContent: 'center',
   },
 
   brandText: {
     color: '#F6F8FC',
 
-    fontSize: 16,
+    fontSize: 10,
     fontWeight: '900',
 
-    letterSpacing: 0.4,
+    letterSpacing: 0.2,
   },
 
   brandAI: {
     color: '#00E5FF',
 
-    fontSize: 16,
+    fontSize: 10,
     fontWeight: '900',
 
-    marginLeft: 4,
+    marginLeft: 2,
   },
 
   divider: {
@@ -294,21 +304,21 @@ const styles = StyleSheet.create({
   ===================================================== */
 
   navigation: {
-    paddingHorizontal: 14,
-    paddingTop: 22,
+    width: '100%',
+
+    paddingHorizontal: 10,
+    paddingTop: 18,
   },
 
   navItem: {
-    height: 52,
+    height: 70,
 
     width: '100%',
 
     borderRadius: 10,
 
-    paddingHorizontal: 10,
-
-    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
 
     marginBottom: 8,
   },
@@ -319,15 +329,15 @@ const styles = StyleSheet.create({
   },
 
   navIconBox: {
-    width: 36,
-    height: 36,
+    width: 38,
+    height: 38,
 
-    borderRadius: 9,
+    borderRadius: 10,
 
     alignItems: 'center',
     justifyContent: 'center',
 
-    marginRight: 10,
+    marginBottom: 3,
   },
 
   navIconBoxActive: {
@@ -338,8 +348,10 @@ const styles = StyleSheet.create({
   navLabel: {
     color: '#8A98B3',
 
-    fontSize: 14,
+    fontSize: 10,
     fontWeight: '600',
+
+    textAlign: 'center',
   },
 
   navLabelActive: {
@@ -355,19 +367,18 @@ const styles = StyleSheet.create({
   connectionSection: {
     marginTop: 'auto',
 
-    paddingHorizontal: 16,
-    paddingBottom: 20,
+    width: '100%',
+
+    paddingHorizontal: 10,
+    paddingBottom: 18,
   },
 
   connectionCard: {
     borderTopWidth: 1,
     borderTopColor: '#1C2333',
 
-    paddingTop: 16,
-  },
+    paddingTop: 14,
 
-  connectionRow: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
 
@@ -379,23 +390,28 @@ const styles = StyleSheet.create({
 
     backgroundColor: '#00FF9D',
 
-    marginRight: 9,
+    marginBottom: 6,
   },
 
   connectionTitle: {
     color: '#F6F8FC',
 
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: '700',
+
+    textAlign: 'center',
+
+    lineHeight: 13,
   },
 
   connectionSubtitle: {
     color: '#71809A',
 
-    fontSize: 10,
+    fontSize: 8,
 
-    marginTop: 4,
-    marginLeft: 17,
+    marginTop: 2,
+
+    textAlign: 'center',
   },
 
   /* =====================================================
@@ -410,7 +426,7 @@ const styles = StyleSheet.create({
 
     minHeight: 0,
 
-    marginLeft: 240,
+    marginLeft: 125,
 
     overflow: 'hidden',
   },

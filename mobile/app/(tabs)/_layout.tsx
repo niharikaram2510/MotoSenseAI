@@ -10,6 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import {
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -119,83 +120,92 @@ export default function TabLayout() {
     "navBorder"
   );
 
+  const isWeb = Platform.OS === "web";
+
   return (
     <Tabs>
       {/* CURRENT SCREEN */}
 
       <TabSlot />
 
-      {/* CUSTOM BOTTOM NAVIGATION */}
+      {/* =====================================================
+          MOBILE BOTTOM NAVIGATION
 
-      <TabList
-        style={[
-          styles.tabBar,
-          {
-            backgroundColor:
-              navBackground,
+          Web uses the desktop sidebar instead,
+          so the bottom navbar must NOT render on web.
+      ===================================================== */}
 
-            borderTopColor:
-              navBorder,
+      {!isWeb && (
+        <TabList
+          style={[
+            styles.tabBar,
+            {
+              backgroundColor:
+                navBackground,
 
-            paddingBottom: Math.max(
-              insets.bottom,
-              5
-            ),
-          },
-        ]}
-      >
-        {/* ================= HOME ================= */}
+              borderTopColor:
+                navBorder,
 
-        <TabTrigger
-          name="home"
-          href="/"
-          asChild
+              paddingBottom: Math.max(
+                insets.bottom,
+                5
+              ),
+            },
+          ]}
         >
-          <TabButton
-            icon="home"
-            label="Home"
-          />
-        </TabTrigger>
+          {/* ================= HOME ================= */}
 
-        {/* ================ DASHBOARD ================ */}
+          <TabTrigger
+            name="home"
+            href="/"
+            asChild
+          >
+            <TabButton
+              icon="home"
+              label="Home"
+            />
+          </TabTrigger>
 
-        <TabTrigger
-          name="dashboard"
-          href="/dashboard"
-          asChild
-        >
-          <TabButton
-            icon="stats-chart"
-            label="Dashboard"
-          />
-        </TabTrigger>
+          {/* ================ DASHBOARD ================ */}
 
-        {/* ================= ALERTS ================= */}
+          <TabTrigger
+            name="dashboard"
+            href="/dashboard"
+            asChild
+          >
+            <TabButton
+              icon="stats-chart"
+              label="Dashboard"
+            />
+          </TabTrigger>
 
-        <TabTrigger
-          name="alerts"
-          href="/alerts"
-          asChild
-        >
-          <TabButton
-            icon="notifications"
-            label="Alerts"
-          />
-        </TabTrigger>
+          {/* ================= ALERTS ================= */}
 
-        {/* ================= SETTINGS ================= */}
+          <TabTrigger
+            name="alerts"
+            href="/alerts"
+            asChild
+          >
+            <TabButton
+              icon="notifications"
+              label="Alerts"
+            />
+          </TabTrigger>
 
-        <TabTrigger
-          name="settings"
-          href="/settings"
-          asChild
-        >
-          <TabButton
-            icon="settings-outline"
-            label="Settings"
-          />
-        </TabTrigger>
-      </TabList>
+          {/* ================= SETTINGS ================= */}
+
+          <TabTrigger
+            name="settings"
+            href="/settings"
+            asChild
+          >
+            <TabButton
+              icon="settings-outline"
+              label="Settings"
+            />
+          </TabTrigger>
+        </TabList>
+      )}
     </Tabs>
   );
 }
