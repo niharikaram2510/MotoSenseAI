@@ -226,7 +226,7 @@ export default function HomeScreen() {
               },
             ]}
           >
-            Here's how your ride is looking today.
+            {"Here's how your ride is looking today."}
           </Text>
         </View>
 
@@ -333,7 +333,7 @@ export default function HomeScreen() {
                 },
               ]}
             >
-              TODAY'S RIDE
+              {"TODAY'S RIDE"}
             </Text>
 
             <Ionicons

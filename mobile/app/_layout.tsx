@@ -19,12 +19,13 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
-  const [themeReady, setThemeReady] = useState(false);
+  const [, setThemeReady] = useState(false);
 
   useEffect(() => {
     const loadSavedTheme = async () => {
       try {
-        const savedTheme = await AsyncStorage.getItem("motosense-theme");
+        const savedTheme =
+          await AsyncStorage.getItem("motosense-theme");
 
         if (savedTheme === "light") {
           Appearance.setColorScheme("light");
@@ -34,7 +35,10 @@ export default function RootLayout() {
           Appearance.setColorScheme(null);
         }
       } catch (error) {
-        console.log("Failed to load saved theme:", error);
+        console.log(
+          "Failed to load saved theme:",
+          error
+        );
       } finally {
         setThemeReady(true);
       }
@@ -43,43 +47,96 @@ export default function RootLayout() {
     loadSavedTheme();
   }, []);
 
-  // Wait until the saved theme has been loaded
-  if (!themeReady) {
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <ThemeProvider
+      value={
+        colorScheme === "dark"
+          ? DarkTheme
+          : DefaultTheme
+      }
+    >
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+          }}
+        />
 
-        <Stack.Screen name="rider-profile" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="login"
+          options={{
+            headerShown: false,
+          }}
+        />
 
-        <Stack.Screen name="connected-bike" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="rider-profile"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="connected-bike"
+          options={{
+            headerShown: false,
+          }}
+        />
+
         <Stack.Screen
           name="emergency-contacts"
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+          }}
         />
-        <Stack.Screen name="sos-settings" options={{ headerShown: false }} />
-        <Stack.Screen name="about" options={{ headerShown: false }} />
+
+        <Stack.Screen
+          name="sos-settings"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="about"
+          options={{
+            headerShown: false,
+          }}
+        />
+
         <Stack.Screen
           name="alert-details"
           options={{
             headerShown: false,
           }}
         />
+
         <Stack.Screen
           name="notifications"
           options={{
             headerShown: false,
           }}
         />
+
         <Stack.Screen
           name="notification-settings"
           options={{
             headerShown: false,
           }}
         />
+
         <Stack.Screen
           name="modal"
           options={{

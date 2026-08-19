@@ -1,22 +1,27 @@
-import React from 'react';
+import React from "react";
+
 import {
   TabList,
   TabSlot,
   TabTrigger,
   Tabs,
-} from 'expo-router/ui';
-import { Ionicons } from '@expo/vector-icons';
+} from "expo-router/ui";
+
+import { Ionicons } from "@expo/vector-icons";
+
 import {
   Pressable,
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "react-native";
 
-import { useThemeColor } from '@/hooks/use-theme-color';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-type TabIconName = keyof typeof Ionicons.glyphMap;
+import { useThemeColor } from "@/hooks/use-theme-color";
+
+type TabIconName =
+  keyof typeof Ionicons.glyphMap;
 
 type CustomTabButtonProps = {
   icon: TabIconName;
@@ -29,12 +34,11 @@ function CustomTabButton({
   label,
   isFocused = false,
 }: CustomTabButtonProps) {
-  // MotoSense active tab color
-  const activeColor = '#7C3AED';
+  const activeColor = "#7C3AED";
 
   const inactiveColor = useThemeColor(
     {},
-    'tabIconDefault'
+    "tabIconDefault"
   );
 
   const iconColor = isFocused
@@ -44,10 +48,12 @@ function CustomTabButton({
   return (
     <View style={styles.tabContent}>
       {/* ICON */}
+
       <View
         style={[
           styles.iconWrapper,
-          isFocused && styles.iconWrapperActive,
+          isFocused &&
+            styles.iconWrapperActive,
         ]}
       >
         <Ionicons
@@ -58,6 +64,7 @@ function CustomTabButton({
       </View>
 
       {/* LABEL */}
+
       <Text
         style={[
           styles.tabLabel,
@@ -81,8 +88,9 @@ function TabButton({
   ...props
 }: CustomTabButtonProps & any) {
   const isFocused =
-    props['aria-selected'] === true ||
-    props.accessibilityState?.selected === true;
+    props["aria-selected"] === true ||
+    props.accessibilityState?.selected ===
+      true;
 
   return (
     <Pressable
@@ -103,26 +111,32 @@ export default function TabLayout() {
 
   const navBackground = useThemeColor(
     {},
-    'navBackground'
+    "navBackground"
   );
 
   const navBorder = useThemeColor(
     {},
-    'navBorder'
+    "navBorder"
   );
 
   return (
     <Tabs>
       {/* CURRENT SCREEN */}
+
       <TabSlot />
 
-      {/* CUSTOM BOTTOM NAVBAR */}
+      {/* CUSTOM BOTTOM NAVIGATION */}
+
       <TabList
         style={[
           styles.tabBar,
           {
-            backgroundColor: navBackground,
-            borderTopColor: navBorder,
+            backgroundColor:
+              navBackground,
+
+            borderTopColor:
+              navBorder,
+
             paddingBottom: Math.max(
               insets.bottom,
               5
@@ -130,7 +144,8 @@ export default function TabLayout() {
           },
         ]}
       >
-        {/* HOME */}
+        {/* ================= HOME ================= */}
+
         <TabTrigger
           name="home"
           href="/"
@@ -142,7 +157,8 @@ export default function TabLayout() {
           />
         </TabTrigger>
 
-        {/* DASHBOARD */}
+        {/* ================ DASHBOARD ================ */}
+
         <TabTrigger
           name="dashboard"
           href="/dashboard"
@@ -154,7 +170,8 @@ export default function TabLayout() {
           />
         </TabTrigger>
 
-        {/* ALERTS */}
+        {/* ================= ALERTS ================= */}
+
         <TabTrigger
           name="alerts"
           href="/alerts"
@@ -166,7 +183,8 @@ export default function TabLayout() {
           />
         </TabTrigger>
 
-        {/* SETTINGS */}
+        {/* ================= SETTINGS ================= */}
+
         <TabTrigger
           name="settings"
           href="/settings"
@@ -182,13 +200,15 @@ export default function TabLayout() {
   );
 }
 
+/* ============================================================
+   STYLES
+============================================================ */
+
 const styles = StyleSheet.create({
-  /* =========================
-     NAVBAR
-  ========================= */
+  /* ================= NAVBAR ================= */
 
   tabBar: {
-    position: 'absolute',
+    position: "absolute",
 
     left: 0,
     right: 0,
@@ -196,60 +216,61 @@ const styles = StyleSheet.create({
 
     minHeight: 64,
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+
+    alignItems: "center",
+
+    justifyContent: "space-between",
 
     paddingTop: 3,
+
     paddingHorizontal: 6,
 
     borderTopWidth: 1,
   },
 
-  /* =========================
-     TAB BUTTON
-  ========================= */
+  /* ================= TAB BUTTON ================= */
 
   tabButton: {
     flex: 1,
 
     height: 54,
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+
+    justifyContent: "center",
   },
 
   tabContent: {
-    width: '100%',
+    width: "100%",
 
     height: 54,
 
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    alignItems: "center",
+
+    justifyContent: "flex-start",
   },
 
-  /* =========================
-     ICON
-  ========================= */
+  /* ================= ICON ================= */
 
   iconWrapper: {
     width: 36,
+
     height: 31,
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+
+    justifyContent: "center",
 
     borderRadius: 10,
   },
 
   iconWrapperActive: {
     backgroundColor:
-      'rgba(124, 58, 237, 0.14)',
+      "rgba(124, 58, 237, 0.14)",
   },
 
-  /* =========================
-     LABEL
-  ========================= */
+  /* ================= LABEL ================= */
 
   tabLabel: {
     fontSize: 10.5,
@@ -260,10 +281,10 @@ const styles = StyleSheet.create({
   },
 
   tabLabelActive: {
-    fontWeight: '700',
+    fontWeight: "700",
   },
 
   tabLabelInactive: {
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
